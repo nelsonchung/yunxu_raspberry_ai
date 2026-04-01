@@ -88,6 +88,11 @@ sudo apt install -y python3-picamera2 python3-opencv
 - `OLLAMA_BASE_URL=http://192.168.8.166:11434`
 - `OLLAMA_MODEL=qwen3.5:2b`
 
+目前 Ollama prompt 會要求：
+
+- `action` 維持固定英文值，方便程式解析
+- `reason` 使用繁體中文，方便直接閱讀模型判斷依據
+
 如果要確認目前到底有沒有拍照成功、是否真的送出圖片到模型，建議加上：
 
 - `--debug-save-frame-path /tmp/latest-frame.jpg`

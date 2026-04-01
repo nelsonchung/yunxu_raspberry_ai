@@ -37,13 +37,30 @@ def decision_from_text(raw_text: str) -> VisionDecision:
         action = Action.ROTATE_SEARCH
     elif "stop" in lowered:
         action = Action.STOP
+    elif "左轉" in cleaned or "向左" in cleaned:
+        action = Action.TURN_LEFT
+    elif "右轉" in cleaned or "向右" in cleaned:
+        action = Action.TURN_RIGHT
+    elif "前進" in cleaned or "往前" in cleaned or "直走" in cleaned:
+        action = Action.FORWARD
+    elif "後退" in cleaned or "倒退" in cleaned:
+        action = Action.BACKWARD
+    elif "旋轉搜尋" in cleaned or "搜尋" in cleaned or "掃描" in cleaned:
+        action = Action.ROTATE_SEARCH
+    elif "停止" in cleaned:
+        action = Action.STOP
 
-    target_found = "found" in lowered or "target_found" in lowered
+    target_found = (
+        "found" in lowered
+        or "target_found" in lowered
+        or "找到" in cleaned
+        or "已發現" in cleaned
+    )
     return VisionDecision(
         action=action,
         duration_ms=500,
         speed=0.4,
-        reason="parsed from free-form model text",
+        reason="由自由格式模型文字解析",
         target_found=target_found,
         raw_text=raw_text,
     )

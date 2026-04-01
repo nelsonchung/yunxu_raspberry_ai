@@ -78,13 +78,17 @@ class OllamaVisionEngine:
 
     def _build_prompt(self, mission: Mission, state: RobotState) -> str:
         return (
-            "You are controlling a small robot car that is searching for an object.\n"
-            f"Mission goal: {mission.goal}\n"
-            f"Previous action: {state.last_action.value}\n"
-            f"Loop count: {state.loop_count}\n"
-            "Look at the image and decide the next safe high-level action.\n"
-            "Return only JSON with keys: "
-            "action, duration_ms, speed, target_found, reason.\n"
-            "Valid actions: forward, backward, turn_left, turn_right, "
-            "rotate_search, stop, announce_found."
+            "你正在控制一台小型機器車搜尋目標物。\n"
+            f"任務目標: {mission.goal}\n"
+            f"上一個動作: {state.last_action.value}\n"
+            f"迴圈次數: {state.loop_count}\n"
+            "請根據圖片判斷下一個安全的高階動作。\n"
+            "請只回傳 JSON，不要加任何額外說明、Markdown 或程式碼區塊。\n"
+            "JSON 必須包含以下欄位: "
+            "action, duration_ms, speed, target_found, reason。\n"
+            "action 必須只能使用以下英文值之一: "
+            "forward, backward, turn_left, turn_right, rotate_search, stop, announce_found。\n"
+            "duration_ms 必須是整數，speed 必須是 0 到 1 之間的小數，"
+            "target_found 必須是 true 或 false。\n"
+            "reason 必須使用繁體中文，簡短說明你為什麼選這個動作。"
         )
