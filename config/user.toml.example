@@ -11,3 +11,4 @@ ollama_model = "qwen3.5:2b"
 ollama_timeout_s = 180.0
 
 debug_save_frame_path = "/tmp/latest-frame.jpg"
+timing_enabled = true

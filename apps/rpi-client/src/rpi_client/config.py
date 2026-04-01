@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import argparse
 import os
 from dataclasses import dataclass
@@ -43,7 +44,7 @@ def _strip_inline_comment(line: str) -> str:
 def _parse_toml_value(raw: str) -> Any:
     value = raw.strip()
     if value.startswith('"') and value.endswith('"'):
-        return bytes(value[1:-1], "utf-8").decode("unicode_escape")
+        return ast.literal_eval(value)
     if value.lower() in {"true", "false"}:
         return value.lower() == "true"
     try:
@@ -92,6 +93,7 @@ def _base_defaults() -> Dict[str, Any]:
         "ollama_timeout_s": 180.0,
         "describe_prompt": "請用繁體中文解讀這張圖片，描述場景、主要物件，以及你注意到的重要細節。",
         "debug_save_frame_path": None,
+        "timing_enabled": False,
         "dry_run": False,
     }
 
@@ -127,6 +129,7 @@ def _env_overrides() -> Dict[str, Any]:
         "ollama_timeout_s": ("OLLAMA_TIMEOUT_S", float),
         "describe_prompt": ("RPI_AI_DESCRIBE_PROMPT", str),
         "debug_save_frame_path": ("RPI_AI_DEBUG_SAVE_FRAME_PATH", str),
+        "timing_enabled": ("RPI_AI_TIMING", _parse_bool),
         "dry_run": ("RPI_AI_DRY_RUN", _parse_bool),
     }
     overrides: Dict[str, Any] = {}
@@ -172,6 +175,7 @@ class RuntimeConfig:
     ollama_timeout_s: float
     describe_prompt: str
     debug_save_frame_path: Optional[str]
+    timing_enabled: bool
     dry_run: bool
 
     @classmethod
@@ -312,6 +316,18 @@ class RuntimeConfig:
             help="Optional JPEG path for saving the latest captured frame.",
         )
         parser.add_argument(
+            "--timing",
+            action="store_true",
+            default=settings["timing_enabled"],
+            help="Print per-stage timing for performance analysis.",
+        )
+        parser.add_argument(
+            "--no-timing",
+            action="store_false",
+            dest="timing",
+            help="Disable timing output even if enabled in config or env.",
+        )
+        parser.add_argument(
             "--dry-run",
             action="store_true",
             default=settings["dry_run"],
@@ -341,5 +357,6 @@ class RuntimeConfig:
             ollama_timeout_s=args.ollama_timeout,
             describe_prompt=args.describe_prompt,
             debug_save_frame_path=args.debug_save_frame_path,
+            timing_enabled=args.timing,
             dry_run=args.dry_run,
         )

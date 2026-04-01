@@ -6,14 +6,22 @@ import urllib.error
 import urllib.request
 
 from rpi_client.model.parser import decision_from_text
+from rpi_client.timing import elapsed_ms, log_timing, now
 from rpi_client.types import Action, FrameCapture, Mission, RobotState, VisionDecision
 
 
 class OllamaVisionEngine:
-    def __init__(self, base_url: str, model: str, timeout_s: float = 180.0) -> None:
+    def __init__(
+        self,
+        base_url: str,
+        model: str,
+        timeout_s: float = 180.0,
+        timing_enabled: bool = False,
+    ) -> None:
         self._url = f"{base_url}/api/chat"
         self._model = model
         self._timeout_s = timeout_s
+        self._timing_enabled = timing_enabled
 
     def analyze_frame(
         self,
@@ -49,6 +57,7 @@ class OllamaVisionEngine:
         return content
 
     def _chat_with_image(self, frame: FrameCapture, prompt: str):
+        started_at = now()
         print(
             "[ollama] sending request url=%s model=%s image=%dx%d bytes=%s"
             % (
@@ -78,6 +87,7 @@ class OllamaVisionEngine:
         )
         with urllib.request.urlopen(request, timeout=self._timeout_s) as response:
             body = json.loads(response.read().decode("utf-8"))
+        log_timing(self._timing_enabled, "ollama_roundtrip", elapsed_ms(started_at))
         content = str(body.get("message", {}).get("content", "")).strip()
         print("[ollama] response received chars=%d" % len(content))
         return content, body

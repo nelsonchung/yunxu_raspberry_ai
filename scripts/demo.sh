@@ -31,6 +31,7 @@ run_demo() {
     --ollama-model "$OLLAMA_MODEL" \
     --ollama-timeout "$OLLAMA_TIMEOUT" \
     --debug-save-frame-path "$DEBUG_FRAME_PATH" \
+    --timing \
     --max-iterations "$MAX_ITERATIONS"
 }
 

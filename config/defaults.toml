@@ -19,3 +19,4 @@ ollama_model = "qwen3.5:2b"
 ollama_timeout_s = 180.0
 
 describe_prompt = "請用繁體中文解讀這張圖片，描述場景、主要物件，以及你注意到的重要細節。"
+timing_enabled = false

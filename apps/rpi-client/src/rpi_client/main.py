@@ -34,6 +34,7 @@ def build_vision_engine(config: RuntimeConfig):
             base_url=config.ollama_base_url,
             model=config.ollama_model,
             timeout_s=config.ollama_timeout_s,
+            timing_enabled=config.timing_enabled,
         )
     return MockVisionEngine()
 

@@ -118,6 +118,25 @@ sudo apt install -y python3-picamera2 python3-opencv
   --debug-save-frame-path /tmp/latest-frame.jpg
 ```
 
+如果你要觀測效能，可加上：
+
+```bash
+./scripts/start_rpi_client.sh \
+  --camera-mode pi \
+  --model-mode ollama \
+  --timing
+```
+
+會額外輸出像這些資訊：
+
+- `camera_capture`
+- `debug_save_frame`
+- `ollama_roundtrip`
+- `vision_total`
+- `motor_execute`
+- `loop_0_total`
+- `describe_run_total`
+
 如果你要使用「拍一張照，然後請 LLM 解讀圖片」模式：
 
 ```bash

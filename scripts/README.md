@@ -13,9 +13,9 @@
 - `./scripts/start_rpi_client.sh`
   - 啟動 Raspberry Pi 主程式
 - `./scripts/demo.sh`
-  - 執行時先讀取攝影機支援模式，再以互動式選單選擇解析度後執行一次 Ollama 測試
+  - 執行時先讀取攝影機支援模式，再以互動式選單選擇解析度後執行一次 Ollama 測試，並預設開啟 timing
 - `./scripts/describe_image.sh`
-  - 執行時先讀取攝影機支援模式，再以互動式選單選擇解析度後請 Ollama 以繁體中文解讀圖片
+  - 執行時先讀取攝影機支援模式，再以互動式選單選擇解析度後請 Ollama 以繁體中文解讀圖片，並預設開啟 timing
 - `./scripts/list_camera_resolutions.sh`
   - 列出 Raspberry Pi 相機可用的 camera modes / resolutions
 
