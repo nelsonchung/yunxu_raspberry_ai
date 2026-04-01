@@ -91,6 +91,20 @@ flowchart LR
    - 沒有模型也能用 mock response
    - 沒有實機也能回放歷史圖片做推論測試
 
+## Configuration Model
+
+這個專案目前採用分層設定模型，讓專案預設值、使用者本地差異和單次測試覆寫可以共存。
+
+優先順序：
+
+1. CLI 參數
+2. 環境變數
+3. `config/user.toml`
+4. `config/defaults.toml`
+5. 程式內建 fallback
+
+詳細說明請參考 [configuration.md](/Users/nelsonchung/development/yunxu_raspberry_ai/docs/configuration.md)。
+
 ## Model Note
 
 如果你要讓 Ollama 根據圖片判斷玩具位置，必須使用支援 image input 的 vision model。規劃上可把模型層抽象成 `VisionEngine`，這樣未來不論模型跑在 Pi 本機、MacBook 或其他主機，都不用大改主控制流程。

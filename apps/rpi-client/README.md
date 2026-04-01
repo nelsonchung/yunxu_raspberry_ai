@@ -60,6 +60,39 @@ src/rpi_client/
   --sample-image-path /absolute/path/to/image.jpg
 ```
 
+## Config
+
+專案現在支援分層設定，建議不要直接改腳本內容。
+
+優先順序：
+
+1. CLI 參數
+2. 環境變數
+3. `config/user.toml`
+4. `config/defaults.toml`
+5. 程式內建 fallback
+
+建議做法：
+
+1. 先查看 [defaults.toml](/Users/nelsonchung/development/yunxu_raspberry_ai/config/defaults.toml)
+2. 複製 [user.toml.example](/Users/nelsonchung/development/yunxu_raspberry_ai/config/user.toml.example) 成 `config/user.toml`
+3. 把你常用的解析度、Ollama 位址、模型名稱寫進 `config/user.toml`
+4. 需要單次覆寫時，再用 CLI 參數修改
+
+如果要指定不同的設定檔：
+
+```bash
+./scripts/start_rpi_client.sh \
+  --config-file /absolute/path/to/defaults.toml \
+  --user-config-file /absolute/path/to/user.toml
+```
+
+如果要忽略使用者設定檔：
+
+```bash
+./scripts/start_rpi_client.sh --no-user-config
+```
+
 如果是在 Raspberry Pi 上使用 CSI camera interface 攝影機，建議用 `Picamera2 + OpenCV`：
 
 ```bash
@@ -81,7 +114,7 @@ sudo apt install -y python3-picamera2 python3-opencv
   --camera-height 480 \
   --ollama-base-url http://192.168.8.166:11434 \
   --ollama-model qwen3.5:2b \
-  --ollama-timeout 90 \
+  --ollama-timeout 180 \
   --debug-save-frame-path /tmp/latest-frame.jpg
 ```
 
@@ -96,7 +129,7 @@ sudo apt install -y python3-picamera2 python3-opencv
   --model-mode ollama \
   --ollama-base-url http://192.168.8.166:11434 \
   --ollama-model qwen3.5:2b \
-  --ollama-timeout 90 \
+  --ollama-timeout 180 \
   --debug-save-frame-path /tmp/latest-frame.jpg \
   --describe-prompt "請用繁體中文解讀這張圖片，描述場景、主要物件，以及你注意到的重要細節。"
 ```
@@ -115,7 +148,7 @@ sudo apt install -y python3-picamera2 python3-opencv
 
 - `--debug-save-frame-path /tmp/latest-frame.jpg`
   - 每次迴圈都把最新影像存成 JPEG
-- `--ollama-timeout 90`
+- `--ollama-timeout 180`
   - 避免模型第一次載入時 30 秒內來不及回應
 
 ## Important Rules

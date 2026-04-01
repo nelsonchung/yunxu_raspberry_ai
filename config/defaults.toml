@@ -1,0 +1,21 @@
+# Project-wide defaults that are safe to commit.
+# Priority order:
+# CLI > ENV > config/user.toml > config/defaults.toml > built-in fallback
+
+app_mode = "search"
+goal = "find toy"
+max_iterations = 8
+loop_interval_s = 1.0
+
+camera_mode = "mock"
+camera_width = 640
+camera_height = 480
+camera_warmup_s = 1.5
+jpeg_quality = 85
+
+model_mode = "mock"
+ollama_base_url = "http://192.168.8.166:11434"
+ollama_model = "qwen3.5:2b"
+ollama_timeout_s = 180.0
+
+describe_prompt = "請用繁體中文解讀這張圖片，描述場景、主要物件，以及你注意到的重要細節。"

@@ -1,0 +1,13 @@
+# Copy this file to config/user.toml and adjust values for your Raspberry Pi.
+
+app_mode = "describe"
+camera_mode = "pi"
+camera_width = 1296
+camera_height = 972
+
+model_mode = "ollama"
+ollama_base_url = "http://192.168.8.166:11434"
+ollama_model = "qwen3.5:2b"
+ollama_timeout_s = 180.0
+
+debug_save_frame_path = "/tmp/latest-frame.jpg"

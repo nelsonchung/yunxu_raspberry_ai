@@ -38,6 +38,7 @@
 ## Docs
 
 - [系統架構](./docs/architecture.md)
+- [設定設計](./docs/configuration.md)
 - [硬體與供電規劃](./docs/hardware-bom.md)
 - [模組整合與命令合約](./docs/api-contract.md)
 - [開發階段規劃](./docs/development-phases.md)

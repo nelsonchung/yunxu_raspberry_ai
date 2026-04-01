@@ -13,6 +13,6 @@ exec "$ROOT_DIR/scripts/start_rpi_client.sh" \
   --model-mode ollama \
   --ollama-base-url "${OLLAMA_BASE_URL:-http://192.168.8.166:11434}" \
   --ollama-model "${OLLAMA_MODEL:-qwen3.5:2b}" \
-  --ollama-timeout "${OLLAMA_TIMEOUT_S:-300}" \
+  --ollama-timeout "${OLLAMA_TIMEOUT_S:-180}" \
   --debug-save-frame-path "${RPI_AI_DEBUG_SAVE_FRAME_PATH:-/tmp/latest-frame.jpg}" \
   --describe-prompt "$PROMPT"

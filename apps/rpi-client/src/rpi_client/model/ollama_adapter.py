@@ -10,7 +10,7 @@ from rpi_client.types import Action, FrameCapture, Mission, RobotState, VisionDe
 
 
 class OllamaVisionEngine:
-    def __init__(self, base_url: str, model: str, timeout_s: float = 90.0) -> None:
+    def __init__(self, base_url: str, model: str, timeout_s: float = 180.0) -> None:
         self._url = f"{base_url}/api/chat"
         self._model = model
         self._timeout_s = timeout_s
