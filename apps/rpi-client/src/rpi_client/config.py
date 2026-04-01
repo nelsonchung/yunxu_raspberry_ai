@@ -87,12 +87,12 @@ class RuntimeConfig:
         )
         parser.add_argument(
             "--ollama-base-url",
-            default=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
+            default=os.getenv("OLLAMA_BASE_URL", "http://192.168.8.166:11434"),
             help="Ollama host base URL.",
         )
         parser.add_argument(
             "--ollama-model",
-            default=os.getenv("OLLAMA_MODEL", "qwen3-vl"),
+            default=os.getenv("OLLAMA_MODEL", "qwen3.5:2b"),
             help="Ollama model name.",
         )
         parser.add_argument(

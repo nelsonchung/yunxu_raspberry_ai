@@ -77,9 +77,14 @@ sudo apt install -y python3-picamera2 python3-opencv
   --camera-mode pi \
   --camera-width 640 \
   --camera-height 480 \
-  --ollama-base-url http://<macbook-ip>:11434 \
-  --ollama-model qwen3-vl
+  --ollama-base-url http://192.168.8.166:11434 \
+  --ollama-model qwen3.5:2b
 ```
+
+目前專案預設的遠端模型設定也是：
+
+- `OLLAMA_BASE_URL=http://192.168.8.166:11434`
+- `OLLAMA_MODEL=qwen3.5:2b`
 
 ## Important Rules
 
