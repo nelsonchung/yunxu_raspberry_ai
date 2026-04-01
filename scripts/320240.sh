@@ -1,4 +1,10 @@
-./scripts/start_rpi_client.sh \
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+"$ROOT_DIR/scripts/start_rpi_client.sh" \
   --camera-mode pi \
   --camera-width 320 \
   --camera-height 240 \
@@ -8,4 +14,3 @@
   --ollama-timeout 300 \
   --debug-save-frame-path /tmp/latest-frame.jpg \
   --max-iterations 1
-
