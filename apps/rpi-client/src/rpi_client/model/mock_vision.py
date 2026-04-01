@@ -34,3 +34,10 @@ class MockVisionEngine:
             reason=f"mock step from {frame.source}",
             raw_text=f"mock action: {action.value}",
         )
+
+    def describe_frame(self, frame: FrameCapture, prompt: str) -> str:
+        return (
+            "這是 mock 圖片解讀模式。"
+            f" 目前影像來源是 {frame.source}，解析度為 {frame.width}x{frame.height}。"
+            f" 你提供的提示是：{prompt}"
+        )

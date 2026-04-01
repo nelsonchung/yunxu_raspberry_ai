@@ -33,6 +33,8 @@ src/rpi_client/
   - 主程式入口
 - `rpi_client.runtime`
   - search loop
+- `rpi_client.describe_runtime`
+  - 拍一張照並請模型解讀圖片
 - `rpi_client.camera`
   - `mock`、`file` 與 `pi` 相機來源
 - `rpi_client.model`
@@ -81,6 +83,22 @@ sudo apt install -y python3-picamera2 python3-opencv
   --ollama-model qwen3.5:2b \
   --ollama-timeout 90 \
   --debug-save-frame-path /tmp/latest-frame.jpg
+```
+
+如果你要使用「拍一張照，然後請 LLM 解讀圖片」模式：
+
+```bash
+./scripts/start_rpi_client.sh \
+  --app-mode describe \
+  --camera-mode pi \
+  --camera-width 640 \
+  --camera-height 480 \
+  --model-mode ollama \
+  --ollama-base-url http://192.168.8.166:11434 \
+  --ollama-model qwen3.5:2b \
+  --ollama-timeout 90 \
+  --debug-save-frame-path /tmp/latest-frame.jpg \
+  --describe-prompt "請用繁體中文解讀這張圖片，描述場景、主要物件，以及你注意到的重要細節。"
 ```
 
 目前專案預設的遠端模型設定也是：

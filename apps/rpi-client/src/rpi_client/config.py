@@ -8,6 +8,7 @@ from typing import Optional
 
 @dataclass
 class RuntimeConfig:
+    app_mode: str
     goal: str
     max_iterations: int
     loop_interval_s: float
@@ -21,6 +22,7 @@ class RuntimeConfig:
     ollama_base_url: str
     ollama_model: str
     ollama_timeout_s: float
+    describe_prompt: str
     debug_save_frame_path: Optional[str]
     dry_run: bool
 
@@ -28,6 +30,12 @@ class RuntimeConfig:
     def from_args(cls):
         parser = argparse.ArgumentParser(
             description="Run the Raspberry Pi AI car main loop."
+        )
+        parser.add_argument(
+            "--app-mode",
+            choices=["search", "describe"],
+            default=os.getenv("RPI_AI_APP_MODE", "search"),
+            help="Application mode.",
         )
         parser.add_argument(
             "--goal",
@@ -104,6 +112,14 @@ class RuntimeConfig:
             help="Timeout in seconds for each Ollama request.",
         )
         parser.add_argument(
+            "--describe-prompt",
+            default=os.getenv(
+                "RPI_AI_DESCRIBE_PROMPT",
+                "請用繁體中文解讀這張圖片，描述場景、主要物件，以及你注意到的重要細節。",
+            ),
+            help="Prompt used by describe mode.",
+        )
+        parser.add_argument(
             "--debug-save-frame-path",
             default=os.getenv("RPI_AI_DEBUG_SAVE_FRAME_PATH"),
             help="Optional JPEG path for saving the latest captured frame.",
@@ -116,6 +132,7 @@ class RuntimeConfig:
         )
         args = parser.parse_args()
         return cls(
+            app_mode=args.app_mode,
             goal=args.goal,
             max_iterations=args.max_iterations,
             loop_interval_s=args.loop_interval,
@@ -129,6 +146,7 @@ class RuntimeConfig:
             ollama_base_url=args.ollama_base_url.rstrip("/"),
             ollama_model=args.ollama_model,
             ollama_timeout_s=args.ollama_timeout,
+            describe_prompt=args.describe_prompt,
             debug_save_frame_path=args.debug_save_frame_path,
             dry_run=args.dry_run,
         )

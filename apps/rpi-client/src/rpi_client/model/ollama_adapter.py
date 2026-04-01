@@ -21,7 +21,34 @@ class OllamaVisionEngine:
         mission: Mission,
         state: RobotState,
     ) -> VisionDecision:
-        prompt = self._build_prompt(mission=mission, state=state)
+        prompt = self._build_search_prompt(mission=mission, state=state)
+        try:
+            content, body = self._chat_with_image(frame=frame, prompt=prompt)
+        except (TimeoutError, socket.timeout) as exc:
+            return VisionDecision(
+                action=Action.STOP,
+                duration_ms=0,
+                speed=0.0,
+                reason=f"ollama request timed out after {self._timeout_s:.0f}s: {exc}",
+                raw_text=str(exc),
+            )
+        except urllib.error.URLError as exc:
+            return VisionDecision(
+                action=Action.STOP,
+                duration_ms=0,
+                speed=0.0,
+                reason=f"ollama request failed: {exc}",
+                raw_text=str(exc),
+            )
+        decision = decision_from_text(content)
+        decision.raw_payload = body
+        return decision
+
+    def describe_frame(self, frame: FrameCapture, prompt: str) -> str:
+        content, _ = self._chat_with_image(frame=frame, prompt=prompt)
+        return content
+
+    def _chat_with_image(self, frame: FrameCapture, prompt: str):
         print(
             "[ollama] sending request url=%s model=%s image=%dx%d bytes=%s"
             % (
@@ -49,34 +76,13 @@ class OllamaVisionEngine:
             headers={"Content-Type": "application/json"},
             method="POST",
         )
-
-        try:
-            with urllib.request.urlopen(request, timeout=self._timeout_s) as response:
-                body = json.loads(response.read().decode("utf-8"))
-        except (TimeoutError, socket.timeout) as exc:
-            return VisionDecision(
-                action=Action.STOP,
-                duration_ms=0,
-                speed=0.0,
-                reason=f"ollama request timed out after {self._timeout_s:.0f}s: {exc}",
-                raw_text=str(exc),
-            )
-        except urllib.error.URLError as exc:
-            return VisionDecision(
-                action=Action.STOP,
-                duration_ms=0,
-                speed=0.0,
-                reason=f"ollama request failed: {exc}",
-                raw_text=str(exc),
-            )
-
+        with urllib.request.urlopen(request, timeout=self._timeout_s) as response:
+            body = json.loads(response.read().decode("utf-8"))
         content = str(body.get("message", {}).get("content", "")).strip()
         print("[ollama] response received chars=%d" % len(content))
-        decision = decision_from_text(content)
-        decision.raw_payload = body
-        return decision
+        return content, body
 
-    def _build_prompt(self, mission: Mission, state: RobotState) -> str:
+    def _build_search_prompt(self, mission: Mission, state: RobotState) -> str:
         return (
             "你正在控制一台小型機器車搜尋目標物。\n"
             f"任務目標: {mission.goal}\n"

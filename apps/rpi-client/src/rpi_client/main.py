@@ -6,6 +6,7 @@ from rpi_client.camera.file_camera import FileCamera
 from rpi_client.camera.mock_camera import MockCamera
 from rpi_client.camera.pi_camera import PiCamera
 from rpi_client.config import RuntimeConfig
+from rpi_client.describe_runtime import DescribeRuntime
 from rpi_client.model.mock_vision import MockVisionEngine
 from rpi_client.model.ollama_adapter import OllamaVisionEngine
 from rpi_client.motor.mock_motor import MockMotorController
@@ -47,6 +48,10 @@ def main() -> int:
         config = RuntimeConfig.from_args()
         camera = build_camera(config)
         vision_engine = build_vision_engine(config)
+        if config.app_mode == "describe":
+            runtime = DescribeRuntime(config, camera, vision_engine)
+            return runtime.run()
+
         motor_controller = build_motor_controller(config)
         runtime = SearchRuntime(config, camera, vision_engine, motor_controller)
         return runtime.run()
