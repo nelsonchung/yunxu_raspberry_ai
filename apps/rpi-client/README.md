@@ -78,13 +78,22 @@ sudo apt install -y python3-picamera2 python3-opencv
   --camera-width 640 \
   --camera-height 480 \
   --ollama-base-url http://192.168.8.166:11434 \
-  --ollama-model qwen3.5:2b
+  --ollama-model qwen3.5:2b \
+  --ollama-timeout 90 \
+  --debug-save-frame-path /tmp/latest-frame.jpg
 ```
 
 目前專案預設的遠端模型設定也是：
 
 - `OLLAMA_BASE_URL=http://192.168.8.166:11434`
 - `OLLAMA_MODEL=qwen3.5:2b`
+
+如果要確認目前到底有沒有拍照成功、是否真的送出圖片到模型，建議加上：
+
+- `--debug-save-frame-path /tmp/latest-frame.jpg`
+  - 每次迴圈都把最新影像存成 JPEG
+- `--ollama-timeout 90`
+  - 避免模型第一次載入時 30 秒內來不及回應
 
 ## Important Rules
 

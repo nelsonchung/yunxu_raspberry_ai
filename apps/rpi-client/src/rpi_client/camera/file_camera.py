@@ -20,4 +20,5 @@ class FileCamera:
             width=640,
             height=480,
             source=str(self._path),
+            encoded_bytes=len(image_bytes),
         )

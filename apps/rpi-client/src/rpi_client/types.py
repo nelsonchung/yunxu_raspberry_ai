@@ -43,6 +43,7 @@ class FrameCapture:
     width: int
     height: int
     source: str
+    encoded_bytes: Optional[int] = None
 
 
 @dataclass

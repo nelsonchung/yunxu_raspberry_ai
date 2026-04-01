@@ -20,6 +20,8 @@ class RuntimeConfig:
     model_mode: str
     ollama_base_url: str
     ollama_model: str
+    ollama_timeout_s: float
+    debug_save_frame_path: Optional[str]
     dry_run: bool
 
     @classmethod
@@ -96,6 +98,17 @@ class RuntimeConfig:
             help="Ollama model name.",
         )
         parser.add_argument(
+            "--ollama-timeout",
+            type=float,
+            default=float(os.getenv("OLLAMA_TIMEOUT_S", "90")),
+            help="Timeout in seconds for each Ollama request.",
+        )
+        parser.add_argument(
+            "--debug-save-frame-path",
+            default=os.getenv("RPI_AI_DEBUG_SAVE_FRAME_PATH"),
+            help="Optional JPEG path for saving the latest captured frame.",
+        )
+        parser.add_argument(
             "--dry-run",
             action="store_true",
             default=os.getenv("RPI_AI_DRY_RUN", "0") == "1",
@@ -115,5 +128,7 @@ class RuntimeConfig:
             model_mode=args.model_mode,
             ollama_base_url=args.ollama_base_url.rstrip("/"),
             ollama_model=args.ollama_model,
+            ollama_timeout_s=args.ollama_timeout,
+            debug_save_frame_path=args.debug_save_frame_path,
             dry_run=args.dry_run,
         )

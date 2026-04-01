@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import time
 from typing import Any
 
@@ -26,15 +27,38 @@ class SearchRuntime:
         try:
             for loop_index in range(self._config.max_iterations):
                 self._state.loop_count = loop_index
+                print(f"[camera] capturing frame loop={loop_index}")
                 frame = self._camera.capture()
+                print(
+                    "[camera] captured source=%s size=%dx%d bytes=%s"
+                    % (
+                        frame.source,
+                        frame.width,
+                        frame.height,
+                        frame.encoded_bytes if frame.encoded_bytes is not None else "unknown",
+                    )
+                )
+                if self._config.debug_save_frame_path:
+                    image_bytes = base64.b64decode(frame.image_base64)
+                    with open(self._config.debug_save_frame_path, "wb") as fp:
+                        fp.write(image_bytes)
+                    print(
+                        "[camera] saved debug frame path=%s bytes=%d"
+                        % (self._config.debug_save_frame_path, len(image_bytes))
+                    )
                 decision = self._vision_engine.analyze_frame(frame, mission, self._state)
                 decision = self._watchdog.validate(decision)
                 self._mission_controller.record_action(mission, decision.action)
                 self._state.last_action = decision.action
 
                 print(
-                    "[vision] source=%s action=%s found=%s"
-                    % (frame.source, decision.action.value, decision.target_found)
+                    "[vision] source=%s action=%s found=%s reason=%s"
+                    % (
+                        frame.source,
+                        decision.action.value,
+                        decision.target_found,
+                        decision.reason,
+                    )
                 )
                 self._motor_controller.execute(decision)
 

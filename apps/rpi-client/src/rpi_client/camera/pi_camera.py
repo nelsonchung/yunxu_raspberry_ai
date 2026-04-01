@@ -69,6 +69,7 @@ class PiCamera:
             width=self._width,
             height=self._height,
             source="pi-camera",
+            encoded_bytes=len(encoded.tobytes()),
         )
 
     def close(self) -> None:

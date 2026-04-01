@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import socket
 import urllib.error
 import urllib.request
 
@@ -9,9 +10,10 @@ from rpi_client.types import Action, FrameCapture, Mission, RobotState, VisionDe
 
 
 class OllamaVisionEngine:
-    def __init__(self, base_url: str, model: str) -> None:
+    def __init__(self, base_url: str, model: str, timeout_s: float = 90.0) -> None:
         self._url = f"{base_url}/api/chat"
         self._model = model
+        self._timeout_s = timeout_s
 
     def analyze_frame(
         self,
@@ -20,6 +22,16 @@ class OllamaVisionEngine:
         state: RobotState,
     ) -> VisionDecision:
         prompt = self._build_prompt(mission=mission, state=state)
+        print(
+            "[ollama] sending request url=%s model=%s image=%dx%d bytes=%s"
+            % (
+                self._url,
+                self._model,
+                frame.width,
+                frame.height,
+                frame.encoded_bytes if frame.encoded_bytes is not None else "unknown",
+            )
+        )
         payload = {
             "model": self._model,
             "messages": [
@@ -39,8 +51,16 @@ class OllamaVisionEngine:
         )
 
         try:
-            with urllib.request.urlopen(request, timeout=30) as response:
+            with urllib.request.urlopen(request, timeout=self._timeout_s) as response:
                 body = json.loads(response.read().decode("utf-8"))
+        except (TimeoutError, socket.timeout) as exc:
+            return VisionDecision(
+                action=Action.STOP,
+                duration_ms=0,
+                speed=0.0,
+                reason=f"ollama request timed out after {self._timeout_s:.0f}s: {exc}",
+                raw_text=str(exc),
+            )
         except urllib.error.URLError as exc:
             return VisionDecision(
                 action=Action.STOP,
@@ -51,6 +71,7 @@ class OllamaVisionEngine:
             )
 
         content = str(body.get("message", {}).get("content", "")).strip()
+        print("[ollama] response received chars=%d" % len(content))
         decision = decision_from_text(content)
         decision.raw_payload = body
         return decision
