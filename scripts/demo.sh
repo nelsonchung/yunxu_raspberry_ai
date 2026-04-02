@@ -5,6 +5,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 START_SCRIPT="$ROOT_DIR/scripts/start_robot_core.sh"
 source "$ROOT_DIR/scripts/camera_modes.sh"
+source "$ROOT_DIR/scripts/ollama_models.sh"
 OLLAMA_BASE_URL="${OLLAMA_BASE_URL:-http://192.168.8.166:11434}"
 OLLAMA_MODEL="${OLLAMA_MODEL:-qwen3.5:2b}"
 OLLAMA_TIMEOUT="${OLLAMA_TIMEOUT_S:-300}"
@@ -36,5 +37,6 @@ run_demo() {
 }
 
 print_header
+select_ollama_model "請根據目前 Ollama 主機支援模型選擇測試模型："
 select_camera_mode "請根據目前攝影機支援模式選擇解析度："
 run_demo
