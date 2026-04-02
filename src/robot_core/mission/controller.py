@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from itertools import count
 
-from rpi_client.types import Action, Mission, MissionStatus
+from ..types import Action, Mission, MissionStatus
 
 
 @dataclass

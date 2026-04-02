@@ -5,9 +5,9 @@ import socket
 import urllib.error
 import urllib.request
 
-from rpi_client.model.parser import decision_from_text
-from rpi_client.timing import elapsed_ms, log_timing, now
-from rpi_client.types import Action, FrameCapture, Mission, RobotState, VisionDecision
+from .parser import decision_from_text
+from ..timing import elapsed_ms, log_timing, now
+from ..types import Action, FrameCapture, Mission, RobotState, VisionDecision
 
 
 class OllamaVisionEngine:

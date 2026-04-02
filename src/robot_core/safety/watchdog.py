@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from rpi_client.types import Action, VisionDecision
+from ..types import Action, VisionDecision
 
 
 class SafetyWatchdog:

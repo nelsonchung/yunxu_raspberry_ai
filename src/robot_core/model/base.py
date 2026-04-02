@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from rpi_client.types import FrameCapture, Mission, RobotState, VisionDecision
+from ..types import FrameCapture, Mission, RobotState, VisionDecision
 
 
 class VisionEngine(Protocol):

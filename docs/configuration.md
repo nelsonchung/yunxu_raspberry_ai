@@ -101,7 +101,7 @@
 例如：
 
 ```bash
-./scripts/start_rpi_client.sh \
+./scripts/start_robot_core.sh \
   --app-mode describe \
   --camera-width 1296 \
   --camera-height 972 \
@@ -162,7 +162,7 @@ debug_save_frame_path = "/tmp/latest-frame.jpg"
 把常用值寫進 `config/user.toml` 後，平常只要執行：
 
 ```bash
-./scripts/start_rpi_client.sh
+./scripts/start_robot_core.sh
 ```
 
 ### Scenario 2. Temporary One-Off Override
@@ -170,7 +170,7 @@ debug_save_frame_path = "/tmp/latest-frame.jpg"
 如果今天只想改成高解析度測試一次：
 
 ```bash
-./scripts/start_rpi_client.sh \
+./scripts/start_robot_core.sh \
   --camera-width 2592 \
   --camera-height 1944
 ```
@@ -188,7 +188,7 @@ OLLAMA_BASE_URL=http://192.168.8.200:11434 ./scripts/describe_image.sh
 如果你想確認專案預設值是否正常：
 
 ```bash
-./scripts/start_rpi_client.sh --no-user-config
+./scripts/start_robot_core.sh --no-user-config
 ```
 
 ## File Map
@@ -197,7 +197,7 @@ OLLAMA_BASE_URL=http://192.168.8.200:11434 ./scripts/describe_image.sh
 
 - [config/defaults.toml](/Users/nelsonchung/development/yunxu_raspberry_ai/config/defaults.toml)
 - [config/user.toml.example](/Users/nelsonchung/development/yunxu_raspberry_ai/config/user.toml.example)
-- [config.py](/Users/nelsonchung/development/yunxu_raspberry_ai/apps/rpi-client/src/rpi_client/config.py)
+- [config.py](/Users/nelsonchung/development/yunxu_raspberry_ai/src/robot_core/config.py)
 - [.gitignore](/Users/nelsonchung/development/yunxu_raspberry_ai/.gitignore)
 
 ## Design Notes

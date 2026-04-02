@@ -3,8 +3,8 @@ from __future__ import annotations
 import base64
 from typing import Any
 
-from rpi_client.config import RuntimeConfig
-from rpi_client.timing import elapsed_ms, log_timing, now
+from .config import RuntimeConfig
+from .timing import elapsed_ms, log_timing, now
 
 
 class DescribeRuntime:

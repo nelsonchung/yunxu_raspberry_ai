@@ -19,7 +19,7 @@ except ImportError as exc:  # pragma: no cover
 else:
     _PICAMERA2_IMPORT_ERROR = None
 
-from rpi_client.types import FrameCapture
+from ..types import FrameCapture
 
 
 class PiCamera:

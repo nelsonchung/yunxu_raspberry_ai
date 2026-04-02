@@ -2,15 +2,15 @@ from __future__ import annotations
 
 import sys
 
-from rpi_client.camera.file_camera import FileCamera
-from rpi_client.camera.mock_camera import MockCamera
-from rpi_client.camera.pi_camera import PiCamera
-from rpi_client.config import RuntimeConfig
-from rpi_client.describe_runtime import DescribeRuntime
-from rpi_client.model.mock_vision import MockVisionEngine
-from rpi_client.model.ollama_adapter import OllamaVisionEngine
-from rpi_client.motor.mock_motor import MockMotorController
-from rpi_client.runtime import SearchRuntime
+from .camera.file_camera import FileCamera
+from .camera.mock_camera import MockCamera
+from .camera.pi_camera import PiCamera
+from .config import RuntimeConfig
+from .describe_runtime import DescribeRuntime
+from .model.mock_vision import MockVisionEngine
+from .model.ollama_adapter import OllamaVisionEngine
+from .motor.mock_motor import MockMotorController
+from .runtime import SearchRuntime
 
 
 def build_camera(config: RuntimeConfig):

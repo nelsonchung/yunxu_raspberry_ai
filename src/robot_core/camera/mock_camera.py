@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from rpi_client.types import FrameCapture
+from ..types import FrameCapture
 
 
 # Tiny transparent PNG for dry-run bootstrapping.

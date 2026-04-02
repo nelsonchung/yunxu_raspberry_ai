@@ -3,7 +3,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-START_SCRIPT="$ROOT_DIR/scripts/start_rpi_client.sh"
+START_SCRIPT="$ROOT_DIR/scripts/start_robot_core.sh"
 source "$ROOT_DIR/scripts/camera_modes.sh"
 OLLAMA_BASE_URL="${OLLAMA_BASE_URL:-http://192.168.8.166:11434}"
 OLLAMA_MODEL="${OLLAMA_MODEL:-qwen3.5:2b}"

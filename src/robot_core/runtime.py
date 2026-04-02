@@ -4,11 +4,11 @@ import base64
 import time
 from typing import Any
 
-from rpi_client.config import RuntimeConfig
-from rpi_client.mission.controller import MissionController
-from rpi_client.safety.watchdog import SafetyWatchdog
-from rpi_client.timing import elapsed_ms, log_timing, now
-from rpi_client.types import Action, RobotState
+from .config import RuntimeConfig
+from .mission.controller import MissionController
+from .safety.watchdog import SafetyWatchdog
+from .timing import elapsed_ms, log_timing, now
+from .types import Action, RobotState
 
 
 class SearchRuntime:

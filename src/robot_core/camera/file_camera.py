@@ -3,7 +3,7 @@ from __future__ import annotations
 import base64
 from pathlib import Path
 
-from rpi_client.types import FrameCapture
+from ..types import FrameCapture
 
 
 class FileCamera:

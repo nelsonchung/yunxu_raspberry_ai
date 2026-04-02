@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 
-from rpi_client.types import Action, VisionDecision
+from ..types import Action, VisionDecision
 
 
 def decision_from_text(raw_text: str) -> VisionDecision:

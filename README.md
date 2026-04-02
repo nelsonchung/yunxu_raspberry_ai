@@ -27,11 +27,11 @@
 
 ```text
 .
-├── apps/
-│   └── rpi-client/         # Raspberry Pi 主程式：相機、音訊、馬達、任務、模型整合
+├── src/
+│   └── robot_core/         # Raspberry Pi 主程式核心：相機、音訊、馬達、任務、模型整合
+├── config/                 # 預設設定與使用者本地覆寫設定
 ├── docs/                   # 架構、硬體、API、開發階段文件
-├── packages/
-│   └── shared/             # Pi 內部共用資料結構、命令模型、設定
+├── pyproject.toml          # Python 專案設定
 └── scripts/                # SSH 啟動、部署、環境安裝腳本
 ```
 
@@ -39,6 +39,7 @@
 
 - [系統架構](./docs/architecture.md)
 - [設定設計](./docs/configuration.md)
+- [執行與模組說明](./docs/runtime-usage.md)
 - [硬體與供電規劃](./docs/hardware-bom.md)
 - [模組整合與命令合約](./docs/api-contract.md)
 - [開發階段規劃](./docs/development-phases.md)

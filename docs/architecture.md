@@ -74,7 +74,7 @@ flowchart LR
 - Log inspection
 - Optional Ollama host
 
-### Shared Package
+### Core Runtime Types
 
 - Command schemas
 - Enum definitions

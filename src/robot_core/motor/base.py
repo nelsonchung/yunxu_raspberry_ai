@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from rpi_client.types import VisionDecision
+from ..types import VisionDecision
 
 
 class MotorController(Protocol):

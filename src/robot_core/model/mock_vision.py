@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from rpi_client.types import Action, FrameCapture, Mission, RobotState, VisionDecision
+from ..types import Action, FrameCapture, Mission, RobotState, VisionDecision
 
 
 class MockVisionEngine:

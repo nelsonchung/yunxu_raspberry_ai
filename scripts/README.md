@@ -3,15 +3,15 @@
 這裡放開發與部署輔助腳本，例如：
 
 - Raspberry Pi 環境安裝
-- 啟動 client
+- 啟動 robot core
 - 相機解析度 / mode 檢查
 - 健康檢查
 - 測試資料回放
 
 ## Available Scripts
 
-- `./scripts/start_rpi_client.sh`
-  - 啟動 Raspberry Pi 主程式
+- `./scripts/start_robot_core.sh`
+  - 啟動 Raspberry Pi 主程式核心
 - `./scripts/demo.sh`
   - 執行時先讀取攝影機支援模式，再以互動式選單選擇解析度後執行一次 Ollama 測試，並預設開啟 timing
 - `./scripts/describe_image.sh`

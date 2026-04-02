@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from rpi_client.types import VisionDecision
+from ..types import VisionDecision
 
 
 class MockMotorController:
