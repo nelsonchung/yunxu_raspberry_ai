@@ -5,8 +5,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "$ROOT_DIR/scripts/camera_modes.sh"
 
-TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
-OUTPUT_PATH="${RPI_AI_CAPTURE_OUTPUT:-/tmp/robot-photo-${TIMESTAMP}.jpg}"
+OUTPUT_PATH="${RPI_AI_CAPTURE_OUTPUT:-/tmp/my-photo.jpg}"
 JPEG_QUALITY="${RPI_AI_JPEG_QUALITY:-95}"
 CAPTURE_TIMEOUT_MS="${RPI_AI_CAPTURE_TIMEOUT_MS:-1000}"
 
