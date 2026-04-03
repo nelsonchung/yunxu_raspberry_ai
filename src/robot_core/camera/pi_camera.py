@@ -54,8 +54,8 @@ class PiCamera:
         time.sleep(max(0.0, warmup_s))
 
     def capture(self) -> FrameCapture:
-        frame_rgb = self._camera.capture_array()
-        frame_bgr = cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2BGR)
+        # Picamera2's RGB888 arrays are laid out for OpenCV as BGR already.
+        frame_bgr = self._camera.capture_array()
         ok, encoded = cv2.imencode(
             ".jpg",
             frame_bgr,
